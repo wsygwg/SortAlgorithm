@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.sort.tao.sortalgorithm.algorithms.MergeSort;
@@ -21,7 +19,7 @@ import com.sort.tao.sortalgorithm.algorithms.exchange.QuickSort;
 import com.sort.tao.sortalgorithm.algorithms.insert.ShellSort;
 import com.sort.tao.sortalgorithm.algorithms.insert.StraightInsertionSort;
 import com.sort.tao.sortalgorithm.algorithms.select.HeapSort;
-import com.sort.tao.sortalgorithm.algorithms.select.SimpleSelectionSort;
+import com.sort.tao.sortalgorithm.algorithms.select.StraightSelectionSort;
 import com.sort.tao.sortalgorithm.utils.ArrayUtil;
 import com.sort.tao.sortalgorithm.utils.Sort;
 import com.sort.tao.sortalgorithm.utils.SortAlgorithm;
@@ -149,7 +147,7 @@ public class SortActivity extends AppCompatActivity {
                 sort =  new ShellSort();
                 break;
             case SimpleSelectionSort:
-                sort =  new SimpleSelectionSort();
+                sort =  new StraightSelectionSort();
                 break;
             case HeapSort:
                 sort =  new HeapSort();
