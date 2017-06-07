@@ -1,5 +1,8 @@
 package com.sort.tao.sortalgorithm.algorithms.exchange;
 
+import android.util.Log;
+
+import com.sort.tao.sortalgorithm.utils.ArrayUtil;
 import com.sort.tao.sortalgorithm.utils.Sort;
 import com.sort.tao.sortalgorithm.utils.SortSend;
 
@@ -11,60 +14,86 @@ import java.util.ArrayList;
  */
 
 public class QuickSort implements Sort {
+    private static final String TAG = Sort.class.getSimpleName();
+
     @Override
     public ArrayList<Integer> sort(ArrayList<Integer> numbers, SortSend sortSend) {
-        return null;
+        return fastSort(numbers, 0, numbers.size() - 1, sortSend);
     }
 
-    private static void Fast(int[] array, int left, int right) {
-        if (left < right) {
-            int p = Partition1(array, left, right);
-            Fast(array, left, p - 1);
-            Fast(array, p + 1, right);
+    private ArrayList<Integer> fastSort(ArrayList<Integer> numbers, int lowIndex, int highIndex, SortSend sortSend) {
+        int partitionIndex = partition(numbers, lowIndex, highIndex, sortSend);
+        Log.e(TAG, ArrayUtil.makeString(numbers));
+        if (partitionIndex - 1 >= 0 && lowIndex < partitionIndex - 1 && lowIndex < partitionIndex - 1) {
+            fastSort(numbers, lowIndex, partitionIndex - 1, sortSend);
         }
-//      if (left < right) {
-//          int p = Partition2(array, left, right);
-//          Fast(array, left, p - 1);
-//          Fast(array, p + 1, right);
-//      }
-    }
-
-    private static int Partition1(int[] array, int left, int right) {
-        int pivot = array[left];
-        while (left < right) {
-            while (left < right && array[right] >= pivot) {
-                right--;
-            }
-            array[left] = array[right];
-            while (left < right && array[left] <= pivot) {
-                left++;
-            }
-            array[right] = array[left];
+        if (partitionIndex + 1 <= numbers.size() - 1 && partitionIndex + 1 < highIndex && partitionIndex + 1 < highIndex) {
+            fastSort(numbers, partitionIndex + 1, highIndex, sortSend);
         }
-        array[left] = pivot;
-        return left;
+        return numbers;
     }
 
-//    private static int Partition2(int[] array, int start, int end) {
-//        int pivot = array[start];
-//        int left = start, right = end;
-//        while (left <= right) {
-//            while (left <= right && array[left] <= pivot) {
-//                left++;
-//            }
-//            while (left <= right && array[right] >= pivot) {
-//                right--;
-//            }
-//            if (left < right) {
-//                Swap(array[right], array[left]);
-//                left++;
-//                right--;
-//            }
-//        }
-//        Swap(array[start], array[right]);
-//        return right;
-//    }
-//    static void Swap(int a,int b){
-//
-//    }
+    /**
+     * 返回pivot
+     *
+     * @param numbers
+     * @param sortSend
+     * @return
+     */
+    private int partition(ArrayList<Integer> numbers, int lowIndex, int highIndex, SortSend sortSend) {
+        while (lowIndex < highIndex) {
+            Log.e(TAG, "lowIndex = " + lowIndex + " ; highIndex = " + highIndex);
+            if (sortSend == SortSend.Ascend) {
+                //升序排列
+                while (numbers.get(lowIndex) <= numbers.get(highIndex)) {
+                    if (highIndex > 0) {
+                        highIndex--;
+                    } else {
+                        break;
+                    }
+                }
+                //较大的数放到后面
+                changeIndexNumber(numbers, lowIndex, highIndex);
+                while (numbers.get(highIndex) >= numbers.get(lowIndex)) {
+                    if (lowIndex < numbers.size() - 1) {
+                        lowIndex++;
+                    } else {
+                        break;
+                    }
+                }
+                //较小的数放到前面
+                changeIndexNumber(numbers, lowIndex, highIndex);
+            } else if (sortSend == SortSend.Descend) {
+                //降序排列
+                while (numbers.get(lowIndex) >= numbers.get(highIndex)) {
+                    if (highIndex > 0) {
+                        highIndex--;
+                    } else {
+                        break;
+                    }
+                }
+                //较小的数放到后面
+                changeIndexNumber(numbers, lowIndex, highIndex);
+                while (numbers.get(highIndex) <= numbers.get(lowIndex)) {
+                    if (lowIndex < numbers.size() - 1) {
+                        lowIndex++;
+                    } else {
+                        break;
+                    }
+                }
+                //较大的数放到前面
+                changeIndexNumber(numbers, lowIndex, highIndex);
+            }
+        }
+        Log.e(TAG, "lowIndex = " + lowIndex);
+        return lowIndex;
+    }
+
+    private void changeIndexNumber(ArrayList<Integer> array, int indexA, int indexB) {
+        if (indexA < indexB) {
+            int indexANumber = array.get(indexA);
+            array.set(indexA, array.get(indexB));
+            array.set(indexB, indexANumber);
+        }
+    }
 }

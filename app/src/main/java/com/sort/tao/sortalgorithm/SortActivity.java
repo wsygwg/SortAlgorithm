@@ -22,6 +22,7 @@ import com.sort.tao.sortalgorithm.algorithms.insert.ShellSort;
 import com.sort.tao.sortalgorithm.algorithms.insert.StraightInsertionSort;
 import com.sort.tao.sortalgorithm.algorithms.select.HeapSort;
 import com.sort.tao.sortalgorithm.algorithms.select.SimpleSelectionSort;
+import com.sort.tao.sortalgorithm.utils.ArrayUtil;
 import com.sort.tao.sortalgorithm.utils.Sort;
 import com.sort.tao.sortalgorithm.utils.SortAlgorithm;
 import com.sort.tao.sortalgorithm.utils.SortSend;
@@ -115,21 +116,14 @@ public class SortActivity extends AppCompatActivity {
         int count = getRandom(2,50);
         ArrayList<Integer> arrayList = createNums(count);
         unSortedNumbers.addAll(arrayList);
-        String s = makeString(unSortedNumbers);
+        String s = ArrayUtil.makeString(unSortedNumbers);
         textViewBeforeSort.setText(s);
     }
 
-    private String makeString(ArrayList<Integer> data){
-        StringBuffer sb = new StringBuffer();
-        for(Integer i : data){
-            sb.append(i + " ");
-        }
-        return sb.toString();
-    }
     private void sortLogic(ArrayList<Integer> beforeData){
         try{
             ArrayList<Integer> afterData = sortByAlgorithm(currentAlgorithm,beforeData);
-            String s = makeString(afterData);
+            String s = ArrayUtil.makeString(afterData);
             textViewAfterSort.setText(s);
         }catch (Exception e){
             e.printStackTrace();
@@ -139,9 +133,6 @@ public class SortActivity extends AppCompatActivity {
     private ArrayList<Integer> sortByAlgorithm(SortAlgorithm sortAlgorithm,ArrayList<Integer> beforeData){
         ArrayList<Integer> afterData = new ArrayList<>();
         for(Integer i : beforeData){
-            /**
-             * TODO:
-             */
             afterData.add(i.intValue());
         }
         Sort sort = getAlogrithmMethod(sortAlgorithm);
