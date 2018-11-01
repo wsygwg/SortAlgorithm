@@ -96,7 +96,7 @@ public class SortActivity extends AppCompatActivity {
         buttonGenerate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setupDatas();
+                setupOriginalData();
             }
         });
         buttonSort.setOnClickListener(new View.OnClickListener() {
@@ -107,12 +107,12 @@ public class SortActivity extends AppCompatActivity {
         });
     }
 
-    private void setupDatas() {
+    private void setupOriginalData() {
         if (unSortedNumbers.size() > 0) {
             unSortedNumbers.clear();
         }
         int count = getRandom(2,50);
-        ArrayList<Integer> arrayList = createNums(count);
+        ArrayList<Integer> arrayList = createNumbers(count);
         unSortedNumbers.addAll(arrayList);
         String s = ArrayUtil.makeString(unSortedNumbers);
         textViewBeforeSort.setText(s);
@@ -133,11 +133,11 @@ public class SortActivity extends AppCompatActivity {
         for(Integer i : beforeData){
             afterData.add(i.intValue());
         }
-        Sort sort = getAlogrithmMethod(sortAlgorithm);
+        Sort sort = getAlgorithmMethod(sortAlgorithm);
         return sort.sort(afterData,sortSend);
     }
 
-    private Sort getAlogrithmMethod(SortAlgorithm sortAlgorithm){
+    private Sort getAlgorithmMethod(SortAlgorithm sortAlgorithm){
         Sort sort;
         switch(sortAlgorithm){
             case StraightInsertionSort:
@@ -171,7 +171,7 @@ public class SortActivity extends AppCompatActivity {
         return sort;
     }
 
-    private ArrayList<Integer> createNums(int count) {
+    private ArrayList<Integer> createNumbers(int count) {
         ArrayList<Integer> retArray = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < count; i++) {

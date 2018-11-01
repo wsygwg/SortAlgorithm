@@ -15,4 +15,12 @@ public class ArrayUtil {
         }
         return sb.toString();
     }
+
+    public synchronized static void changeIndexNumber(ArrayList<Integer> array, int indexA, int indexB) {
+        if (indexA < indexB) {
+            int indexANumber = array.get(indexA);
+            array.set(indexA, array.get(indexB));
+            array.set(indexB, indexANumber);
+        }
+    }
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  * 快速排序
- *
+ * <p>
  * 1）选择一个基准元素,通常选择第一个元素或者最后一个元素,
  * 2）通过一趟排序讲待排序的记录分割成独立的两部分，其中一部分记录的元素值均比基准元素值小。另一部分记录的 元素值比基准值大。
  * 3）此时基准元素在其排好序后的正确位置
@@ -58,7 +58,7 @@ public class QuickSort implements Sort {
                     }
                 }
                 //较大的数放到后面
-                changeIndexNumber(numbers, lowIndex, highIndex);
+                ArrayUtil.changeIndexNumber(numbers, lowIndex, highIndex);
                 while (numbers.get(highIndex) >= numbers.get(lowIndex)) {
                     if (lowIndex < numbers.size() - 1) {
                         lowIndex++;
@@ -67,7 +67,7 @@ public class QuickSort implements Sort {
                     }
                 }
                 //较小的数放到前面
-                changeIndexNumber(numbers, lowIndex, highIndex);
+                ArrayUtil.changeIndexNumber(numbers, lowIndex, highIndex);
             } else if (sortSend == SortSend.Descend) {
                 //降序排列
                 while (numbers.get(lowIndex) >= numbers.get(highIndex)) {
@@ -78,7 +78,7 @@ public class QuickSort implements Sort {
                     }
                 }
                 //较小的数放到后面
-                changeIndexNumber(numbers, lowIndex, highIndex);
+                ArrayUtil.changeIndexNumber(numbers, lowIndex, highIndex);
                 while (numbers.get(highIndex) <= numbers.get(lowIndex)) {
                     if (lowIndex < numbers.size() - 1) {
                         lowIndex++;
@@ -87,18 +87,10 @@ public class QuickSort implements Sort {
                     }
                 }
                 //较大的数放到前面
-                changeIndexNumber(numbers, lowIndex, highIndex);
+                ArrayUtil.changeIndexNumber(numbers, lowIndex, highIndex);
             }
         }
         Log.e(TAG, "lowIndex = " + lowIndex);
         return lowIndex;
-    }
-
-    private void changeIndexNumber(ArrayList<Integer> array, int indexA, int indexB) {
-        if (indexA < indexB) {
-            int indexANumber = array.get(indexA);
-            array.set(indexA, array.get(indexB));
-            array.set(indexB, indexANumber);
-        }
     }
 }
